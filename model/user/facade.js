@@ -1,13 +1,15 @@
 const Facade = require('../../lib/facade');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const userSchema = require('./schema');
+const config = require('../../config');
 
 class UserFacade extends Facade {
     async authenticate({ username, password }) {
-        const user = await super.findOne({ username });
+        const user = await this.findOne({ username });
         if (user && bcrypt.compareSync(password, user.hash)) {
             const { hash, ...userWithoutHash } = user.toObject();
-            const token = jwt.sign({ sub: user.id }, config.secret);
+            const token = jwt.sign({ sub: user.id }, config.secretJwtKey, {expiresIn: '48h'});
             return {
                 ...userWithoutHash,
                 token
@@ -16,18 +18,18 @@ class UserFacade extends Facade {
     }
 
     findById (...args) {
-        return super.Model
+        return this.Model
           .findById(...args)
           .select('-hash')
           .exec()
     }
 
     async update(id, userParam) {
-        const user = await super.findById(id);
+        const user = await this.findById(id);
     
         // validate
         if (!user) throw 'User not found';
-        if (user.username !== userParam.username && await super.findOne({ username: userParam.username })) {
+        if (user.username !== userParam.username && await this.findOne({ username: userParam.username })) {
             throw 'Username "' + userParam.username + '" is already taken';
         }
     
@@ -41,6 +43,24 @@ class UserFacade extends Facade {
     
         await user.save();
     }
+
+    async create(userParam) {
+        // validate
+        if (await this.findOne({ username: userParam.username })) {
+            throw 'Username "' + userParam.username + '" is already taken';
+        }
+    
+        const user = new this.Model(userParam);
+    
+        // hash password
+        if (userParam.password) {
+            user.hash = bcrypt.hashSync(userParam.password, 10);
+        }
+    
+        // save user
+        await user.save();
+    }
+    
 }
 
 module.exports = new UserFacade('User', userSchema)

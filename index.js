@@ -15,7 +15,7 @@ const cors = require('cors');
 
 mongoose.Promise = bluebird
 console.log('config.mongo.url', config.mongo.url);
-mongoose.connect(config.mongo.url)
+mongoose.connect(config.mongo.url, { useNewUrlParser: true })
 
 app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: true }))
