@@ -11,13 +11,4 @@ router.route('/:id')
   .get((...args) => controller.findById(...args))
   .delete((...args) => controller.remove(...args))
 
-router.route('/user/:id')
-  .get((...args) => controller.findyByUserId(...args))
-
-router.route('/ruling/:id')
-  .get((...args) => controller.findByRulingId(...args))
-
-router.route('/user/:userId/ruling/:rulingId')
-.get((...args) => controller.findByUserAndRuling(...args))
-
 module.exports = router

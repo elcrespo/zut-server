@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}\\index.js",
-            "env": {"PORT": "3000"}
+            "env": {"PORT": "8080"}
         }
     ]
 }
