@@ -29,6 +29,3 @@ https://zemoga-ui-test-server.herokuapp.com
 
 Little API with JWT
 Config file: `config.js`
-
-## I'm not an expert in NodeJS
-But I'm working on that. I would love you guys if you give me the opportunity to work with this techology. :)
