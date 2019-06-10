@@ -9,7 +9,9 @@ function jwt() {
             // public routes that don't require authentication
             '/user/authenticate',
             '/user/register',
-            { url: '/marriage-status', methods: ['GET']}
+            { url: '/marriage-status', methods: ['GET']},
+            { url: '/ruling', methods: ['GET']},
+            { url: /^\/vote\/ruling\/([^\/]*)$/, methods: ['GET']}
         ]
     });
 }

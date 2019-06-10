@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 class VoteFacade extends Facade {
-    findyByUserId(userId) {
+    findyByUserId({userId}) {
         return this.Model.aggregate([
             { $match: { user: new mongoose.mongo.ObjectId(userId) } },
             {
@@ -16,12 +16,12 @@ class VoteFacade extends Facade {
         ]).exec();
     }
 
-    findByRulingId(rulingId) {
+    findByRulingId({rulingId}) {
         return this.Model.aggregate([
             { $match: { ruling: new mongoose.mongo.ObjectId(rulingId) } },
             {
                 $group: {
-                    _id: "vote",
+                    _id: "$vote",
                     count: { $sum: 1 }
                 }
             }
