@@ -1,11 +1,5 @@
 # zut-server
 
-[![generator-api](https://img.shields.io/badge/built%20with-generator--api-green.svg)](https://github.com/ndelvalle/generator-api)
-
-test
-
-
-
 ## dependencies
 
 node 6.3.x or later and mongodb
@@ -26,16 +20,15 @@ npm run dev
 
 the app runs on `localhost:8080`
 
-## production
-
-_you'll likely be consuming mongodb as a service, so make sure you set the env var to connect to it._
-
-```bash
-npm start
-```
-
-
-
-
-
 --------------------------------------------------------------------------------
+
+## Version Online
+https://zemoga-ui-test-server.herokuapp.com
+
+## Comments
+
+Little API with JWT
+Config file: `config.js`
+
+## I'm not an expert in NodeJS
+But I'm working on that. I would love you guys if you give me the opportunity to work with this techology. :)
